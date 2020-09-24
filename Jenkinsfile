@@ -23,7 +23,7 @@ node {
     stage('docker image push & run') {
     withCredentials([string(credentialsId: 'DockerHubPass', variable: 'dockerHubPass')]) {
         sh 'docker login -u gautamjainsagar -p ${dockerHubPass}'
-        sh 'docker push gautamjainsagar/myspringbootappimage'
+        //sh 'docker push gautamjainsagar/myspringbootappimage'
         sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootappimage'
     // some block
     }
