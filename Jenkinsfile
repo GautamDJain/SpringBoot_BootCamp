@@ -17,14 +17,14 @@ node {
     }
     stage('docker image build') {
            sh 'docker --version'
-        sh 'docker build -t gautamjainsagar/mySpringBootAppimage .'
+        sh 'docker build -t gautamjainsagar/myspringbootappimage .'
         
     }
     stage('docker image push & run') {
     withCredentials([string(credentialsId: 'DockerHubPass', variable: 'dockerHubPass')]) {
         sh 'docker login -u gautamjainsagar -p ${dockerHubPass}'
-        sh 'docker push gautamjainsagar/mySpringBootAppimage'
-        sh 'docker run -d -p 8088:8080 gautamjainsagar/mySpringBootAppimage'
+        sh 'docker push gautamjainsagar/myspringbootappimage'
+        sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootappimage'
     // some block
     }
 }
