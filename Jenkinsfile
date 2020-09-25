@@ -1,31 +1,23 @@
 node {
-    def mvnHome
-    stage('Preparation') { // for display purposes
-        // Get some code from a GitHub repository
-       git credentialsId: 'github', url: 'https://github.com/GautamDJain/SpringBoot_BootCamp.git'
-        // Get the Maven tool.
-        // ** NOTE: This 'M3' Maven tool must be configured
-        // **       in the global configuration.
-     
+    def MvnHome=tool name: 'maven-3', type: 'maven'
+	def MavenCMD="${MvnHome}/bin/mvn"
+	def docker=tool name: 'docker', type: 'dockerTool'
+	def DockerCMD="${docker}/bin/docker"
+    stage('GitHub Repo checkout & Preparation') { 
+       git credentialsId: 'GitHub', url: 'https://github.com/GautamDJain/SpringBoot_BootCamp.git'  
     }
-    stage('Build') {
-        // Run the maven build
-                mvnHome = tool 'maven-3'
-                sh 'mvn clean package'
-           
-        
+    stage('Maven Build, Unit test & Package') {
+                sh "${MavenCMD} clean package"       
     }
-    stage('docker image build') {
-           sh 'docker --version'
-        sh 'docker build -t gautamjainsagar/myspringbootimage .'
-        
+    stage('Docker image build & push to Docker Hub') {
+        sh "${DockerCMD} --version"
+        sh "${DockerCMD} build -t gautamjainsagar/myspringbootimage ."
+        withCredentials([string(credentialsId: 'DockerHubPass', variable: 'dockerHubPass')]) {
+           sh "${DockerCMD} login -u gautamjainsagar -p ${dockerHubPass}"     
+        }
+	    sh "${DockerCMD} push gautamjainsagar/myspringbootimage"
     }
-    stage('docker image push & run') {
-    withCredentials([string(credentialsId: 'DockerHubPass', variable: 'dockerHubPass')]) {
-        sh 'docker login -u gautamjainsagar -p ${dockerHubPass}'
-        sh 'docker push gautamjainsagar/myspringbootimage'
-        sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootimage'
-    // some block
+    stage('Docker image pull & run') {
+        //sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootimage'
     }
-}
 }
