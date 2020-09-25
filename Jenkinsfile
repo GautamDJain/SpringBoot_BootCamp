@@ -23,3 +23,4 @@ node {
         //sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootimage'
     }
 }
+}
