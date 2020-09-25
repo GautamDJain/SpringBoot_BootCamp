@@ -18,6 +18,8 @@ node {
 	    sh "${DockerCMD} push gautamjainsagar/myspringbootimage"
     }
     stage('Docker image pull & run') {
+	sshagent(['Docker_User_SSH']) {
+        sh 'ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker --version'
         //sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootimage'
     }
 }
