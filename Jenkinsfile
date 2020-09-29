@@ -1,5 +1,5 @@
 node {
-    def MvnHome=tool name: 'maven-3', type: 'maven'
+        def MvnHome=tool name: 'maven-3', type: 'maven'
 	def MavenCMD="${MvnHome}/bin/mvn"
 	def docker=tool name: 'docker', type: 'dockerTool'
 	def DockerCMD="${docker}/bin/docker"
@@ -20,11 +20,11 @@ node {
         }
         stage('Docker image pull & run') {
 	        sshagent(['Docker_User_SSH']) {
-              sh 'ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker --version'
+                      sh 'ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker --version'
 		      sh 'ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker stop springbootapp || true'
 		      sh 'ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker rm -f springbootapp || true'
 		      sh 'ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker run -d -p 8088:8080 --name springbootapp gautamjainsagar/myspringbootimage'
-              //sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootimage'
+                      //sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootimage'
            }
         }
     }
