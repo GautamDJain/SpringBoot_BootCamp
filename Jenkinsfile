@@ -27,6 +27,6 @@ node {
     }
 }
  stage('Email Notificatin') {
- mail bcc: '', body: "Your Jenkins Job ${env.JOB_NAME} build is ${currentBuild.currentResult} for build number ${env.BUILD_NUMBER}. \n You can check Jenkin job console output info at: ${env.BUILD_URL}", cc: '', from: '', replyTo: '', subject: "Jenkins Build Job ${env.JOB_NAME} status is ${currentBuild.currentResult}", to: 'gautamjain2011@gmail.com'
+ mail bcc: '', body: "Your Jenkins Job ${env.JOB_NAME} build is ${currentBuild.currentResult} for build number ${env.BUILD_NUMBER}. \nYou can check Jenkin job console output info at: ${env.BUILD_URL}", cc: '', from: '', replyTo: '', subject: "Jenkins Build Job ${env.JOB_NAME} status is ${currentBuild.currentResult}", to: 'gautamjain2011@gmail.com'
 }
 }
