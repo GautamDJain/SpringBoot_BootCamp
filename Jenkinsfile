@@ -3,6 +3,7 @@ node {
 	def MavenCMD="${MvnHome}/bin/mvn"
 	def docker=tool name: 'docker', type: 'dockerTool'
 	def DockerCMD="${docker}/bin/docker"
+	try {
     stage('GitHub Repo checkout & Preparation') { 
        git credentialsId: 'GitHub', url: 'https://github.com/GautamDJain/SpringBoot_BootCamp.git'  
     }
@@ -26,7 +27,11 @@ node {
         //sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootimage'
     }
 }
+}
+catch(e){
+print "Hello !"
  stage('Email Notificatin') {
  mail bcc: '', body: "Your Jenkins Job ${env.JOB_NAME} build is ${currentBuild.currentResult} for build number ${env.BUILD_NUMBER}. \nYou can check Jenkin job console output info at: ${env.BUILD_URL}", cc: '', from: '', replyTo: '', subject: "Jenkins Build Job ${env.JOB_NAME} status is ${currentBuild.currentResult}", to: 'gautamjain2011@gmail.com'
+}
 }
 }
