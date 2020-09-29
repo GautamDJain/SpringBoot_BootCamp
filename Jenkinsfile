@@ -1,4 +1,9 @@
-node {
+pipeline {
+    agent any
+    stages {
+        stage('Spring Boot Build and Deploy') {
+            steps {
+            node ('master') {
     def MvnHome=tool name: 'maven-3', type: 'maven'
 	def MavenCMD="${MvnHome}/bin/mvn"
 	def docker=tool name: 'docker', type: 'dockerTool'
@@ -26,7 +31,12 @@ node {
         //sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootimage'
     }
 }
-post {
+
+}
+        }
+        }
+    }
+	post {
         always {
             echo 'I will always say Hello again !'
             emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
