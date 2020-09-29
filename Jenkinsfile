@@ -1,9 +1,4 @@
-pipeline {
-    agent any
-    stages {
-        stage('Spring Boot Build and Deploy') {
-            steps {
-            node ('master') {
+node {
     def MvnHome=tool name: 'maven-3', type: 'maven'
 	def MavenCMD="${MvnHome}/bin/mvn"
 	def docker=tool name: 'docker', type: 'dockerTool'
@@ -31,18 +26,7 @@ pipeline {
         //sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootimage'
     }
 }
-
+ stage('Email Notificatin') {
+ mail bcc: '', body: '${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\\n More info at: ${env.BUILD_URL}', cc: '', from: '', replyTo: '', subject: 'Jenkins Build Job ${env.JOB_NAME} Status is ${currentBuild.currentResult}', to: 'gautamjain2011@gmail.com'
 }
-        }
-        }
-    }
-	post {
-        always {
-            echo 'I will always say Hello again !'
-            emailext body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
-                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
-            
-        }
-    }
 }
