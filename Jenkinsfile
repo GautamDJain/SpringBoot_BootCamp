@@ -14,7 +14,7 @@ node {
         sh "${DockerCMD} --version"
         sh "${DockerCMD} build -t gautamjainsagar/myspringbootimage ."
         withCredentials([string(credentialsId: 'DockerHubPass', variable: 'dockerHubPass')]) {
-           sh "${DockerCMD} login -u gautamjainsagar -p ${dockerHubPassq}"     
+           sh "${DockerCMD} login -u gautamjainsagar -p ${dockerHubPass}"     
         }
 	    sh "${DockerCMD} push gautamjainsagar/myspringbootimage"
     }
