@@ -27,6 +27,8 @@ node {
     }
 }
  stage('Email Notificatin') {
- mail bcc: '', body: '${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\\n More info at: ${env.BUILD_URL}', cc: '', from: '', replyTo: '', subject: 'Jenkins Build Job ${env.JOB_NAME} Status is ${currentBuild.currentResult}', to: 'gautamjain2011@gmail.com'
+	 print "${currentBuild.currentResult}, ${env.JOB_NAME}, ${env.BUILD_NUMBER} ${env.BUILD_URL}"
+	  print "This is ${currentBuild.currentResult}, ${JOB_NAME}, ${BUILD_NUMBER} ${BUILD_URL}"
+ mail bcc: '', body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\\n More info at: ${env.BUILD_URL}", cc: '', from: '', replyTo: '', subject: "Jenkins Build Job ${env.JOB_NAME} Status is ${currentBuild.currentResult}", to: 'gautamjain2011@gmail.com'
 }
 }
