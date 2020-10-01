@@ -8,6 +8,7 @@ node {
             git credentialsId: 'GitHub', url: 'https://github.com/GautamDJain/SpringBoot_BootCamp.git'  
         }
         stage('Maven Build, Unit test & Package') {
+		sh 'java -version'
             sh "${MavenCMD} clean package"       
         }
         stage('Docker image build & push to Docker Hub') {
