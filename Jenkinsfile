@@ -13,7 +13,7 @@ node {
         }
         stage('Docker image build & push to Docker Hub') {
             sh "${DockerCMD} --version"
-		sh "${DockerCMD} start"
+		//sh "${DockerCMD} start"
            sh "${DockerCMD}.build 'gautamjainsagar:myspringbootimage'"
             withCredentials([string(credentialsId: 'DockerHubPass', variable: 'dockerHubPass')]) {
                sh "${DockerCMD} login -u gautamjainsagar -p ${dockerHubPass}"     
