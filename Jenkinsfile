@@ -22,10 +22,10 @@ node {
         }
         stage('Docker image pull & run') {
 	        sshagent(['Docker_User_SSH']) {
-                      sh 'ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker --version'
-		      sh 'ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker stop springbootapp || true'
-		      sh 'ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker rm -f springbootapp || true'
-		      sh 'ssh -o StrictHostKeyChecking=no cloud_user@10.128.0.4 docker run -d -p 8088:8080 --name springbootapp gautamjainsagar/myspringbootimage'
+                      sh 'ssh -o StrictHostKeyChecking=no cloud_user@35.222.233.74 docker --version'
+		      sh 'ssh -o StrictHostKeyChecking=no cloud_user@35.222.233.74 docker stop springbootapp || true'
+		      sh 'ssh -o StrictHostKeyChecking=no cloud_user@35.222.233.74 docker rm -f springbootapp || true'
+		      sh 'ssh -o StrictHostKeyChecking=no cloud_user@35.222.233.74 docker run -d -p 8088:8080 --name springbootapp gautamjainsagar/myspringbootimage'
                       //sh 'docker run -d -p 8088:8080 gautamjainsagar/myspringbootimage'
            }
         }
